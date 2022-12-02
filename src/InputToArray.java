@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-public class InputToArray<E> {
+public class InputToArray {
     int type;
     ArrayList list;
 

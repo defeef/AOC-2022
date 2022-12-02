@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Day1 {
     public Day1() {
         String path = "C:\\Users\\henry\\Documents\\Coding\\Java\\AOC 2022\\src\\Day1.txt";
-        InputToArray<Integer> array = new InputToArray<Integer>(0, path);
+        InputToArray array = new InputToArray(0, path);
 
         int max1 = 0;
         int max2 = 0;
