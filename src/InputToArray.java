@@ -48,7 +48,10 @@ public class InputToArray {
                 }
                 case 2 -> {
                     return "";
-                }default -> {
+                } case 3 -> {
+                    return new ArrayList<ArrayList<Integer>>();
+                }
+                default -> {
                     return "";
                 }
             }
@@ -62,8 +65,17 @@ public class InputToArray {
             }
             case 2 -> {
                 return toConvert;
-            }default -> {
-                return toConvert;
+            } case 3 -> {
+                int[] numbers = new int[4];
+                String half1 = toConvert.split(",")[0];
+                numbers[0] = Integer.parseInt(half1.split("-")[0]);
+                numbers[1] = Integer.parseInt(half1.split("-")[1]);
+                String half2 = toConvert.split(",")[1];
+                numbers[2] = Integer.parseInt(half2.split("-")[0]);
+                numbers[3] = Integer.parseInt(half2.split("-")[1]);
+                return numbers;
+            } default -> {
+                    return toConvert;
             }
         }
     }
