@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Day1 {
     public Day1() {
-        String path = "C:\\Users\\henry\\Documents\\Coding\\Java\\AOC 2022\\src\\Day1.txt";
+        String path = "C:\\Users\\henry\\Documents\\Coding\\Java\\AOC 2022\\AOC-2022\\src\\Day1.txt";
         InputToArray array = new InputToArray(0, path);
 
         int max1 = 0;
