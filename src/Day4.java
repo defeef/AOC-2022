@@ -8,7 +8,10 @@ public class Day4 {
         int score = 0;
         for (int i = 0; i < array.list.size(); i++) {
             int[] ranges = (int[])array.list.get(i);
-            if ((ranges[0] >= ranges[2] && ranges[1] <= ranges[3]) || (ranges[2] >= ranges[0] && ranges[3] <= ranges[1])) {
+            if ((ranges[0] >= ranges[2] && ranges[0] <= ranges[3]) ||
+                    (ranges[1] >= ranges[2] && ranges[1] <= ranges[3]) ||
+                    (ranges[2] >= ranges[0] && ranges[2] <= ranges[1]) ||
+                    (ranges[3] >= ranges[0] && ranges[3] <= ranges[1])) {
                 score++;
             }
         }
