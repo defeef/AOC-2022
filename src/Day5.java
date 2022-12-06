@@ -11,12 +11,7 @@ public class Day5 {
 
         for (int i = 1; i < array.list.size(); i++) {
             int[] line = (int[]) array.list.get(i);
-            for (int j = 0; j < line[0]; j++) {
-                int idx = topIndex(line, stack);
-                String temp = stack.get(line[1] - 1).get(idx);
-                stack.get(line[1] - 1).remove(idx);
-                stack.get(line[2] - 1).add(temp);
-            }
+            move(line, stack);
         }
 
         for (ArrayList<String> arr : stack) {
@@ -24,6 +19,19 @@ public class Day5 {
                 System.out.print(str + ", ");
             }
             System.out.println();
+        }
+    }
+
+    private void move(int[] line, ArrayList<ArrayList<String>> stack) {
+        ArrayList<String> temp = new ArrayList<String>();
+        for (int i = 0; i < line[0]; i++) {
+            int idx = topIndex(line, stack);
+            temp.add(0, stack.get(line[1] - 1).get(idx));
+            stack.get(line[1] - 1).remove(topIndex(line, stack));
+        }
+        for (int i = 0; i < line[0]; i++) {
+            stack.get(line[2] - 1).add(temp.get(0));
+            temp.remove(0);
         }
     }
 
