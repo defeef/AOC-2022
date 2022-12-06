@@ -92,7 +92,9 @@ public class InputToArray {
                     return new ArrayList<ArrayList<Integer>>();
                 } case 4: {
                     return new int[]{0, 0, 0};
-                } default: {
+                } case 5: {
+                    return "";
+                }default: {
                     return "";
                 }
             }
@@ -135,6 +137,12 @@ public class InputToArray {
                     type4Result2[2] = Integer.parseInt(splits[5]);
                     return type4Result2;
                 }
+            } case 5: {
+                ArrayList<String> result = new ArrayList<String>();
+                for (int i = 0; i < toConvert[0].length(); i++) {
+                    result.add(toConvert[0].substring(i, i + 1));
+                }
+                return result;
             } default: {
                 return toConvert;
             }
