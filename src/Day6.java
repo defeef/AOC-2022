@@ -9,23 +9,30 @@ public class Day6 {
         ArrayList<String> list = (ArrayList<String>)array.list.get(0);
         
         int result = -1;
-        for (int i = 3; i < list.size(); i++) {
+        for (int i = 13; i < list.size(); i++) {
             ArrayList<String> chars = new ArrayList<String>();
-            chars.add(list.get(i - 3));
-            chars.add(list.get(i - 2));
-            chars.add(list.get(i - 1));
-            chars.add(list.get(i));
+            for (int j = 0; j < 14; j++) {
+                chars.add(list.get(i - j));
+            }
             System.out.println(chars);
-            if (!chars.get(0).equals(chars.get(1))
-            && !chars.get(1).equals(chars.get(2))
-            && !chars.get(2).equals(chars.get(3))
-            && !chars.get(0).equals(chars.get(2))
-            && !chars.get(1).equals(chars.get(3))
-            && !chars.get(0).equals(chars.get(3))) {
+            if (allDistinct(chars)) {
                 result = i + 1;
                 break;
             }
         }
         System.out.println(result);
+    }
+    
+    private boolean allDistinct(ArrayList<String> chars) {
+        for (int i = 0; i < chars.size(); i++) {
+            for (int j = i; j < chars.size(); j++) {
+                boolean eq = chars.get(i).equals(chars.get(j));
+                System.out.println(chars.get(i) + eq + chars.get(j));
+                if (eq) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
