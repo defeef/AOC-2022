@@ -25,6 +25,9 @@ public class InputToArray {
             }
             int initCount = 0;
             ArrayList<ArrayList<String>> stacks = new ArrayList<ArrayList<String>>();
+            
+            Command previousCom;
+            
             for (int i = 0; i < 9; i++) {
                 stacks.add(new ArrayList<String>());
             }
@@ -36,6 +39,17 @@ public class InputToArray {
                     } catch (NoSuchElementException e) {
                         scanner.close();
                         return;
+                    }
+                } else if (this.type == 6) {
+                    String str = line;
+                    if (str.substring(0, 1).equals("$")) {
+                        if (str.split(" ")[1].equals("dir")) {
+                            previousCom = new Command("dir", null);
+                        } else {
+                            previousCom = new Command("ls", str.split(" ")[2]);
+                        }
+                    } else {
+                        
                     }
                 } else {
                     if (initCount < 8) {
@@ -94,7 +108,9 @@ public class InputToArray {
                     return new int[]{0, 0, 0};
                 } case 5: {
                     return "";
-                }default: {
+                } case 6: {
+                    return new Directory("");
+                } default: {
                     return "";
                 }
             }
@@ -143,6 +159,8 @@ public class InputToArray {
                     result.add(toConvert[0].substring(i, i + 1));
                 }
                 return result;
+            } case 6: {
+                
             } default: {
                 return toConvert;
             }
