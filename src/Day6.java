@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Day6 {
     public Day6() {
-        String path = "Y:\\AP Computer Science A\\Baczkiewicz Henry A\\WORK\\AOC\\AOC-2022\\Day 5\\Day6.txt";
+        String path = "C:\\Users\\henry\\Documents\\Coding\\Java\\AOC 2022\\AOC-2022\\src\\Day6.txt";
         InputToArray array = new InputToArray(5, path);
         ArrayList<String> list = (ArrayList<String>)array.list.get(0);
         
@@ -25,7 +25,7 @@ public class Day6 {
     
     private boolean allDistinct(ArrayList<String> chars) {
         for (int i = 0; i < chars.size(); i++) {
-            for (int j = i; j < chars.size(); j++) {
+            for (int j = i + 1; j < chars.size(); j++) {
                 boolean eq = chars.get(i).equals(chars.get(j));
                 System.out.println(chars.get(i) + eq + chars.get(j));
                 if (eq) {
