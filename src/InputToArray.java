@@ -26,8 +26,8 @@ public class InputToArray {
             int initCount = 0;
             ArrayList<ArrayList<String>> stacks = new ArrayList<ArrayList<String>>();
 
-            Result currentRes = new Result();
-            String dirName = "";
+            //Result currentRes = new Result();
+            //String dirName = "";
             
             for (int i = 0; i < 9; i++) {
                 stacks.add(new ArrayList<String>());
@@ -41,7 +41,7 @@ public class InputToArray {
                         scanner.close();
                         return;
                     }
-                } else if (this.type == 6) {
+                } /*else if (this.type == 6) {
                     String str = line;
                     String[] splits = str.split(" ");
                     if (str.charAt(0) == '$') {
@@ -68,7 +68,7 @@ public class InputToArray {
                         scanner.close();
                         return;
                     }
-                } else {
+                } */else {
                     if (initCount < 8) {
                         String[] arr = new String[9];
                         for (int i = 0; i < 9; i++) {
@@ -125,6 +125,8 @@ public class InputToArray {
                     return new int[]{0, 0, 0};
                 } case 5: {
                     return "";
+                } case 7: {
+                    return new ArrayList<Integer>();
                 } default: {
                     return "";
                 }
@@ -174,6 +176,13 @@ public class InputToArray {
                     result.add(toConvert[0].substring(i, i + 1));
                 }
                 return result;
+            } case 7: {
+                String line = toConvert[0];
+                ArrayList<Integer> row = new ArrayList<Integer>();
+                for (int i = 0; i < line.length(); i++) {
+                    row.add(Integer.parseInt(line.substring(i, i + 1)));
+                }
+                return row;
             } default: {
                 return toConvert;
             }
