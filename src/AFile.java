@@ -12,4 +12,9 @@ public class AFile {
     public int getSize() {
         return size;
     }
+
+    @Override
+    public String toString() {
+        return "File(" + this.name + ", " + this.size + ")";
+    }
 }

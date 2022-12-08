@@ -25,14 +25,15 @@ public class InputToArray {
             }
             int initCount = 0;
             ArrayList<ArrayList<String>> stacks = new ArrayList<ArrayList<String>>();
-            
-            Command previousCom;
+
+            Result currentRes = new Result();
+            String dirName = "";
             
             for (int i = 0; i < 9; i++) {
                 stacks.add(new ArrayList<String>());
             }
             while (line != null) {
-                if (this.type != 4) {
+                if (this.type != 4 && this.type != 6) {
                     this.list.add(this.convert(new String[]{line}, false));
                     try {
                         line = scanner.nextLine();
@@ -42,14 +43,30 @@ public class InputToArray {
                     }
                 } else if (this.type == 6) {
                     String str = line;
-                    if (str.substring(0, 1).equals("$")) {
-                        if (str.split(" ")[1].equals("dir")) {
-                            previousCom = new Command("dir", null);
-                        } else {
-                            previousCom = new Command("ls", str.split(" ")[2]);
+                    String[] splits = str.split(" ");
+                    if (str.charAt(0) == '$') {
+                        if (splits[1].equals("cd")) {
+                            dirName = splits[2];
+                        } else if (splits[1].equals("ls")) {
+                            currentRes = new Result();
+                            try {
+                                line = scanner.nextLine();
+                            } catch (NoSuchElementException e) {
+                                scanner.close();
+                                return;
+                            }
                         }
+                    } else if (splits[0].equals("dir")) {
+                        list.add(new Directory(splits[1], currentRes));
+                        currentRes.addResultLine(splits[1]);
                     } else {
-                        
+                        currentRes.addResultLine(line);
+                    }
+                    try {
+                        line = scanner.nextLine();
+                    } catch (NoSuchElementException e) {
+                        scanner.close();
+                        return;
                     }
                 } else {
                     if (initCount < 8) {
@@ -108,8 +125,6 @@ public class InputToArray {
                     return new int[]{0, 0, 0};
                 } case 5: {
                     return "";
-                } case 6: {
-                    return new Directory("");
                 } default: {
                     return "";
                 }
@@ -159,8 +174,6 @@ public class InputToArray {
                     result.add(toConvert[0].substring(i, i + 1));
                 }
                 return result;
-            } case 6: {
-                
             } default: {
                 return toConvert;
             }
