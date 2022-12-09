@@ -25,15 +25,12 @@ public class InputToArray {
             }
             int initCount = 0;
             ArrayList<ArrayList<String>> stacks = new ArrayList<ArrayList<String>>();
-
-            //Result currentRes = new Result();
-            //String dirName = "";
             
             for (int i = 0; i < 9; i++) {
                 stacks.add(new ArrayList<String>());
             }
             while (line != null) {
-                if (this.type != 4 && this.type != 6) {
+                if (this.type != 4) {
                     this.list.add(this.convert(new String[]{line}, false));
                     try {
                         line = scanner.nextLine();
@@ -41,34 +38,7 @@ public class InputToArray {
                         scanner.close();
                         return;
                     }
-                } /*else if (this.type == 6) {
-                    String str = line;
-                    String[] splits = str.split(" ");
-                    if (str.charAt(0) == '$') {
-                        if (splits[1].equals("cd")) {
-                            dirName = splits[2];
-                        } else if (splits[1].equals("ls")) {
-                            currentRes = new Result();
-                            try {
-                                line = scanner.nextLine();
-                            } catch (NoSuchElementException e) {
-                                scanner.close();
-                                return;
-                            }
-                        }
-                    } else if (splits[0].equals("dir")) {
-                        list.add(new Directory(splits[1], currentRes));
-                        currentRes.addResultLine(splits[1]);
-                    } else {
-                        currentRes.addResultLine(line);
-                    }
-                    try {
-                        line = scanner.nextLine();
-                    } catch (NoSuchElementException e) {
-                        scanner.close();
-                        return;
-                    }
-                } */else {
+                } else {
                     if (initCount < 8) {
                         String[] arr = new String[9];
                         for (int i = 0; i < 9; i++) {
