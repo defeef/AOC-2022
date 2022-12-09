@@ -95,6 +95,11 @@ public class InputToArray {
                     return new int[]{0, 0, 0};
                 } case 5: {
                     return "";
+                } case 6: {
+                    ArrayList<Integer> r = new ArrayList<Integer>();
+                    r.add(0);
+                    r.add(0);
+                    return r;
                 } case 7: {
                     return new ArrayList<Integer>();
                 } default: {
@@ -146,6 +151,8 @@ public class InputToArray {
                     result.add(toConvert[0].substring(i, i + 1));
                 }
                 return result;
+            } case 6: {
+                String line = toConvert[0];
             } case 7: {
                 String line = toConvert[0];
                 ArrayList<Integer> row = new ArrayList<Integer>();
