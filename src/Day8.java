@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Day8 {
     public Day8() {
-        String path = "Y:\\AP Computer Science A\\Baczkiewicz Henry A\\WORK\\AOC\\AOC-2022\\Day 5\\Day8.txt";
+        String path = "C:\\Users\\henry\\Documents\\Coding\\Java\\AOC 2022\\AOC-2022\\src\\Day8.txt";
         InputToArray array = new InputToArray(7, path);
         ArrayList<ArrayList<Integer>> list = array.list;
         
@@ -23,9 +23,9 @@ public class Day8 {
     
     private boolean isVisible(int x, int y, ArrayList<ArrayList<Integer>> board) {
         return isVisible(x, y, board, 0)
-        //|| isVisible(x, y, board, 1)
-        //|| isVisible(x, y, board, 2)
-        //|| isVisible(x, y, board, 3)
+        || isVisible(x, y, board, 1)
+        || isVisible(x, y, board, 2)
+        || isVisible(x, y, board, 3)
         ;
     }
     
@@ -37,17 +37,22 @@ public class Day8 {
             new int[]{-1, 0},
         };
         
-        if (dir == 0) {
-            dx = 
-        }
-        
         int height = board.get(x).get(y);
         System.out.println("height: " + height);
-        for (int i = x + dirs[dir][0]; i < board.size() && i > 0; i += dx) {
-            for (int j = y + dirs[dir][1]; j < board.get(i).size() && j > 0; j += dy) {
-                System.out.println("pos: " + i + ", " + j);
-                System.out.println("boardTree: " + board.get(i).get(j));
-                if (board.get(i).get(j) >= height) {
+        if (dir == 0 || dir == 2) {
+            for (int i = y + dirs[dir][1]; i < 99 && i >= 0; i += dirs[dir][1]) {
+                System.out.println("pos: " + x + ", " + i);
+                System.out.println("boardTree: " + board.get(x).get(i));
+                if (board.get(x).get(i) >= height) {
+                    System.out.println();
+                    return false;
+                }
+            }
+        } else {
+            for (int i = x + dirs[dir][0]; i < 99 && i >= 0; i += dirs[dir][0]) {
+                System.out.println("pos: " + i + ", " + y);
+                System.out.println("boardTree: " + board.get(i).get(y));
+                if (board.get(i).get(y) >= height) {
                     System.out.println();
                     return false;
                 }
