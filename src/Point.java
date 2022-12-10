@@ -33,6 +33,11 @@ public class Point {
         return new Point(newX, newY);
     }
 
+    public void add(Point other) {
+        this.x += other.getX();
+        this.y += other.getY();
+    }
+
     public int[] asArray() {
         return new int[]{this.x, this.y};
     }
@@ -42,6 +47,11 @@ public class Point {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Point point = (Point) o;
-        return x == point.x && y == point.y;
+        return x == point.getX() && y == point.getY();
+    }
+
+    @Override
+    public String toString() {
+        return "Point(" + this.getX() + ", " + this.getY() + ")";
     }
 }
