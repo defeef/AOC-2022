@@ -6,36 +6,57 @@ public class Day10 {
         InputToArray array = new InputToArray(8, path);
         ArrayList<int[]> list = array.list;
 
-        ArrayList<Integer> checks = new ArrayList<Integer>();
+        /*ArrayList<Integer> checks = new ArrayList<Integer>();
 
         checks.add(20);
         checks.add(60);
         checks.add(100);
         checks.add(140);
         checks.add(180);
-        checks.add(220);
+        checks.add(220);*/
+
+        String[][] crt = new String[6][40];
 
         int register = 1;
-        int cycle = 1;
-        int strength = 0;
+        int cycle = 0;
+        //int strength = 0;
         for (int i = 0; i < list.size(); i++) {
+
             if (list.get(i)[0] == 0) {
                 cycle++;
+                if (cycle > 239) {
+                    break;
+                }
+                drawCycle(register, cycle, crt);
             } else {
                 cycle++;
-                if (checks.contains(cycle)) {
-                    strength += cycle * register;
-                    System.out.println(cycle + " : " + register + " : " + cycle * register + " : " + strength);
+                if (cycle > 239) {
+                    break;
                 }
+                drawCycle(register, cycle, crt);
                 cycle++;
+                if (cycle > 239) {
+                    break;
+                }
                 register += list.get(i)[1];
-            }
-            if (checks.contains(cycle)) {
-                strength += cycle * register;
-                System.out.println(cycle + " : " + cycle * register + " : " + strength);
+                drawCycle(register, cycle, crt);
             }
         }
-        System.out.println(strength);
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 40; j++) {
+                System.out.print(crt[i][j]);
+            }
+            System.out.println();
+        }
     }
-    
+
+    private void drawCycle(int register, int cycle, String[][] screen) {
+        int[] coords = new int[]{cycle / 40, cycle % 40};
+        System.out.println(coords[0] + ", " + coords[1]);
+        if (register - 1 == cycle || register == cycle || register + 1 == cycle) {
+            screen[coords[0]][coords[1]] = "#";
+            return;
+        }
+        screen[coords[0]][coords[1]] = ".";
+    }
 }
