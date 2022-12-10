@@ -1,6 +1,8 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Day9 {
     private int headX;
@@ -16,26 +18,18 @@ public class Day9 {
 
         String path = "C:\\Users\\henry\\Documents\\Coding\\Java\\AOC 2022\\AOC-2022\\src\\Day9.txt";
         InputToArray array = new InputToArray(6, path);
-        ArrayList<int[]> list = array.list;
+        ArrayList<Point> list = array.list;
         
-        ArrayList<int[]> visited = new ArrayList<int[]>();
-        visited.add(new int[]{tailX, tailY});
+        Set<Point> visited = new HashSet<Point>();
+        visited.add(new Point(tailX, tailY));
         for (int i = 0; i < list.size(); i++) {
             System.out.println("Command: " + list.get(i)[0] + " " + list.get(i)[1]);
             for (int j = 0; j < list.get(i)[1]; j++) {
                 move(list.get(i)[0]);
                 System.out.println("headX:" + headX + " headY:" + headY + " tailX:" + tailX + " tailY:" + tailY);
-                System.out.println(dist(headX, headY, tailX, tailY));
+                System.out.println(dist(tailX, tailY, headX, headY));
                 System.out.println(visualize(this.headX, this.headY, this.tailX, this.tailY));
-                boolean newPos = true;
-                for (int[] pos : visited) {
-                    if (pos[0] == tailX && pos[1] == tailY) {
-                        newPos = false;
-                    }
-                }
-                if (newPos) {
-                    visited.add(new int[]{tailX, tailY});
-                }
+                visited.add(new int[]{tailX, tailY});
             }
         }
         System.out.println(visited.size());
@@ -51,21 +45,16 @@ public class Day9 {
 
         headX += dirs[dir][0];
         headY += dirs[dir][1];
-        if (dist(headX, headY, tailX, tailY) > 1) {
-            int[] diff = diff(headX, headY, tailX, tailY);
+        if (dist(tailX, tailY, headX, headY) > 1) {
+            int[] diff = diff(tailX, tailY, headX, headY);
             System.out.println("diff: " + diff[0] + ", " + diff[1]);
-            if ((Math.abs(diff[0]) == 1 && Math.abs(diff[1]) == 2) || (Math.abs(diff[0]) == 2 && Math.abs(diff[1]) == 1)) {
-                if (Math.abs(diff[0]) > 1) {
-                    diff[0] = (int)Math.round(diff[0]/2.0);
-                } else {
-                    diff[1] = (int)Math.round(diff[1]/2.0);
-                }
-                tailX += diff[0];
-                tailY += diff[1];
-            } else {
-                tailX += dirs[dir][0];
-                tailY += dirs[dir][1];
+            if (Math.abs(diff[0]) > 1) {
+                diff[0] = (int)Math.round(diff[0] / 2.0);
+            } else if (Math.abs(diff[1]) > 1) {
+                diff[1] = (int)Math.round(diff[1] / 2.0);
             }
+            tailX += diff[0];
+            tailY += diff[1];
         }
     }
 

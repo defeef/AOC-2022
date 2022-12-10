@@ -168,7 +168,7 @@ public class InputToArray {
                     }
                 }
                 r[1] = Integer.parseInt(splits[1]);
-                return r;
+                return new Point(r[0], r[1]);
             } case 7: {
                 String line = toConvert[0];
                 ArrayList<Integer> row = new ArrayList<Integer>();
