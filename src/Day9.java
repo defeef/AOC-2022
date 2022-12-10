@@ -54,7 +54,7 @@ public class Day9 {
                 }
                 //System.out.println("hx:" + head.getX() + " hy:" + head.getY() + " tx:" + tail.getX() + " ty:" + tail.getY());
                 //System.out.println(visualize(head, tails));
-                visited.add(new Point(tails[0].getX(), tails[0].getY()));
+                visited.add(new Point(tails[8].getX(), tails[8].getY()));
             }
         }
         ArrayList<Point> unique = new ArrayList<Point>();
