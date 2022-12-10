@@ -153,6 +153,22 @@ public class InputToArray {
                 return result;
             } case 6: {
                 String line = toConvert[0];
+                int[] r = new int[2];
+                String[] splits = line.split(" ");
+                switch (splits[0]) {
+                    case "D": {
+                        r[0] = 1;
+                        break;
+                    } case "L": {
+                        r[0] = 2;
+                        break;
+                    } case "U": {
+                        r[0] = 3;
+                        break;
+                    }
+                }
+                r[1] = Integer.parseInt(splits[1]);
+                return r;
             } case 7: {
                 String line = toConvert[0];
                 ArrayList<Integer> row = new ArrayList<Integer>();
