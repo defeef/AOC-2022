@@ -6,20 +6,11 @@ public class Day10 {
         InputToArray array = new InputToArray(8, path);
         ArrayList<int[]> list = array.list;
 
-        /*ArrayList<Integer> checks = new ArrayList<Integer>();
-
-        checks.add(20);
-        checks.add(60);
-        checks.add(100);
-        checks.add(140);
-        checks.add(180);
-        checks.add(220);*/
-
         String[][] crt = new String[6][40];
 
         int register = 1;
         int cycle = 0;
-        //int strength = 0;
+        drawCycle(register, cycle, crt);
         for (int i = 0; i < list.size(); i++) {
 
             if (list.get(i)[0] == 0) {
@@ -52,8 +43,8 @@ public class Day10 {
 
     private void drawCycle(int register, int cycle, String[][] screen) {
         int[] coords = new int[]{cycle / 40, cycle % 40};
-        System.out.println(coords[0] + ", " + coords[1]);
-        if (register - 1 == cycle || register == cycle || register + 1 == cycle) {
+        System.out.println(coords[0] + ", " + coords[1] + " : " + register);
+        if (register - 1 == coords[1] || register == coords[1] || register + 1 == coords[1]) {
             screen[coords[0]][coords[1]] = "#";
             return;
         }

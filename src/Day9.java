@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-/*public class Day9 {
+public class Day9 {
     private int headX;
     private int headY;
     private int tailX;
@@ -17,25 +17,76 @@ import java.util.Set;
         this.tailY = 0;
 
         String path = "C:\\Users\\henry\\Documents\\Coding\\Java\\AOC 2022\\AOC-2022\\src\\Day9.txt";
-        InputToArray array = new InputToArray(6, path);
-        ArrayList<Point> list = array.list;
+        InputToArray array = new InputToArray(2, path);
+        ArrayList<String> list = array.list;
         
-        Set<Point> visited = new HashSet<Point>();
+        ArrayList<Point> visited = new ArrayList<>();
         visited.add(new Point(tailX, tailY));
         for (int i = 0; i < list.size(); i++) {
-            System.out.println("Command: " + list.get(i)[0] + " " + list.get(i)[1]);
-            for (int j = 0; j < list.get(i)[1]; j++) {
-                move(list.get(i)[0]);
-                System.out.println("headX:" + headX + " headY:" + headY + " tailX:" + tailX + " tailY:" + tailY);
-                System.out.println(dist(tailX, tailY, headX, headY));
-                System.out.println(visualize(this.headX, this.headY, this.tailX, this.tailY));
-                visited.add(new int[]{tailX, tailY});
+            for (int j = 0; j < Integer.parseInt(list.get(i).split(" ")[1]); j++) {
+                switch (list.get(i).charAt(0)) {
+                    case 'R': {
+                        move(0);
+                    } case 'D': {
+                        move(1);
+                    } case 'L': {
+                        move(2);
+                    } case 'U': {
+                        move(3);
+                    }
+                }
+                System.out.println("hx:" + headX + " hy:" + headY + " tx:" + tailX + " ty:" + tailY);
+                System.out.println(visualize(headX, headY, tailX, tailY));
+                visited.add(new Point(tailX, tailY));
             }
         }
-        System.out.println(visited.size());
+        ArrayList<Point> unique = new ArrayList<Point>();
+        for (Point point : visited) {
+            if (!(unique.contains(point))) {
+                unique.add(point);
+            }
+        }
+
+        System.out.println(unique.size());
     }
 
     private void move(int dir) {
+        int[][] dirs = new int[][]{
+                new int[]{0, 1},
+                new int[]{1, 0},
+                new int[]{0, -1},
+                new int[]{-1, 0},
+        };
+        Point[] offsets = new Point[]{
+                new Point(2, 0),
+                new Point(2, 1),
+                new Point(1, 2),
+                new Point(0, 2),
+                new Point(-1, 2),
+                new Point(-2, 1),
+                new Point(-2, 0),
+                new Point(-2, -1),
+                new Point(-1, -2),
+                new Point(0, -2),
+                new Point(1, -2),
+                new Point(2, -1),
+        };
+
+        headX += dirs[dir][0];
+        headY += dirs[dir][1];
+
+        Point diff = new Point(headX - tailX, headY - tailY);
+        for (Point offset : offsets) {
+            if (diff.equals(offset)) {
+                tailX += offset.normalized().getX();
+                tailY += offset.normalized().getY();
+            }
+        }
+    }
+
+
+
+    /*private void move(int dir) {
         int[][] dirs = new int[][]{
                 new int[]{0, 1},
                 new int[]{1, 0},
@@ -66,7 +117,7 @@ import java.util.Set;
     private int[] diff(int x1, int y1, int x2, int y2) {
         return new int[]{x2 - x1, y2 - y1};
     }
-
+    */
     private String visualize(int x1, int y1, int x2, int y2) {
         String r = "";
         String[][] grid = new String[5][5];
@@ -75,8 +126,8 @@ import java.util.Set;
                 grid[i][j] = ".";
             }
         }
-        int[] offset = diff(x1, y1, x2, y2);
-        grid[2 + offset[0]][2 + offset[1]] = "T";
+        Point offset = new Point(headX - tailX, headY - tailY);;
+        grid[2 + offset.getX()][2 + offset.getY()] = "T";
         grid[2][2] = "H";
 
         for (int i = 0; i < 5; i++) {
@@ -88,4 +139,3 @@ import java.util.Set;
         return r;
     }
 }
-*/

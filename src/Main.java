@@ -1,5 +1,5 @@
 public class Main {
     public static void main(String[] args) {
-        Day10 day = new Day10();
+        Day9 day = new Day9();
     }
 }
