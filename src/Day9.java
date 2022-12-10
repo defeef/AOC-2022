@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Day9 {
+/*public class Day9 {
     private int headX;
     private int headY;
     private int tailX;
@@ -88,3 +88,4 @@ public class Day9 {
         return r;
     }
 }
+*/

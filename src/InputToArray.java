@@ -96,12 +96,17 @@ public class InputToArray {
                 } case 5: {
                     return "";
                 } case 6: {
-                    ArrayList<Integer> r = new ArrayList<Integer>();
-                    r.add(0);
-                    r.add(0);
+                    int[] r = new int[2];
+                    r[0] = 0;
+                    r[1] = 0;
                     return r;
                 } case 7: {
                     return new ArrayList<Integer>();
+                } case 8: {
+                    int[] r = new int[2];
+                    r[0] = 0;
+                    r[1] = 0;
+                    return r;
                 } default: {
                     return "";
                 }
@@ -176,6 +181,20 @@ public class InputToArray {
                     row.add(Integer.parseInt(line.substring(i, i + 1)));
                 }
                 return row;
+            } case 8: {
+                String line = toConvert[0];
+                int[] r = new int[2];
+                String[] splits = line.split(" ");
+                if (splits[0].equals("noop")) {
+                    r[0] = 0;
+                    r[1] = Integer.parseInt(splits[1]);
+                } else {
+                    r[0] = 1;
+                }
+                ArrayList<Integer> result = new ArrayList<Integer>();
+                result.add(r[0]);
+                result.add(r[1]);
+                return result;
             } default: {
                 return toConvert;
             }
