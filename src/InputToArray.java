@@ -187,14 +187,11 @@ public class InputToArray {
                 String[] splits = line.split(" ");
                 if (splits[0].equals("noop")) {
                     r[0] = 0;
-                    r[1] = Integer.parseInt(splits[1]);
                 } else {
                     r[0] = 1;
+                    r[1] = Integer.parseInt(splits[1]);
                 }
-                ArrayList<Integer> result = new ArrayList<Integer>();
-                result.add(r[0]);
-                result.add(r[1]);
-                return result;
+                return r;
             } default: {
                 return toConvert;
             }
