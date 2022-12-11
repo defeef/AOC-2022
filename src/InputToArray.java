@@ -30,8 +30,50 @@ public class InputToArray {
                 stacks.add(new ArrayList<String>());
             }
             while (line != null) {
-                if (this.type != 4) {
+                if (this.type != 4 && this.type != 9) {
                     this.list.add(this.convert(new String[]{line}, false));
+                    try {
+                        line = scanner.nextLine();
+                    } catch (NoSuchElementException e) {
+                        scanner.close();
+                        return;
+                    }
+                } else if (this.type == 9) {
+                    ArrayList<Item> items = new ArrayList<Item>();
+                    String operation = "";
+                    int test = 0;
+                    int throwFalse = 0;
+                    int throwTrue = 0;
+                    line = scanner.nextLine();
+                    String[] splits = line.split(" ");
+                    for (int i = 4; i < splits.length; i++) {
+                        items.add(new Item(Integer.parseInt(splits[i].split(",")[0])));
+                    }
+                    line = scanner.nextLine();
+                    splits = line.split(" ");
+                    for (int i = 6; i < splits.length; i++) {
+                        operation += splits[i].split(",")[0] + " ";
+                    }
+                    operation = operation.stripTrailing();
+                    line = scanner.nextLine();
+                    splits = line.split(" ");
+                    test = Integer.parseInt(splits[splits.length - 1]);
+                    line = scanner.nextLine();
+
+                    splits = line.split(" ");
+                    throwTrue = Integer.parseInt(splits[splits.length - 1]);
+                    line = scanner.nextLine();
+
+                    splits = line.split(" ");
+                    throwFalse = Integer.parseInt(splits[splits.length - 1]);
+                    //line = scanner.nextLine();
+                    this.list.add(new Monkey(items, operation, test, throwFalse, throwTrue));
+                    try {
+                        line = scanner.nextLine();
+                    } catch (NoSuchElementException e) {
+                        scanner.close();
+                        return;
+                    }
                     try {
                         line = scanner.nextLine();
                     } catch (NoSuchElementException e) {
