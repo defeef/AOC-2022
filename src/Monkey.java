@@ -1,7 +1,8 @@
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Monkey {
+public class Monkey implements Comparable {
     ArrayList<Item> items;
     String[] operation;
     int test;
@@ -9,7 +10,7 @@ public class Monkey {
     Monkey monkeyTrue;
     int throwFalse;
     int throwTrue;
-    int inspections;
+    long inspections;
 
     public Monkey(ArrayList<Item> items, String operation, int test, int throwFalse, int throwTrue) {
         this.items = items;
@@ -30,4 +31,19 @@ public class Monkey {
     public String toString() {
         return "Monkey(" + this.items + ", " + Arrays.toString(this.operation) + ", " + this.test + ", " + this.throwTrue + ", " + this.throwFalse + ", " + this.inspections + ")";
     }
+
+    @Override
+    public int compareTo(Object o) {
+        Monkey other = (Monkey)o;
+        if (this.inspections > other.inspections) {
+            return 1;
+        }
+        if (this.inspections < other.inspections) {
+            return -1;
+        }
+        return 0;
+    }
 }
+
+// 2147483647
+// 9699690

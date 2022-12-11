@@ -1,4 +1,6 @@
+import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Day11 {
     public Day11() {
@@ -6,17 +8,19 @@ public class Day11 {
         InputToArray array = new InputToArray(9, path);
         ArrayList<Monkey> list = (ArrayList<Monkey>) array.list;
 
+        int maxMod = 1;
         for (int i = 0; i < list.size(); i++) {
             Monkey monkey = list.get(i);
             monkey.monkeyTrue = list.get(monkey.throwTrue);
             monkey.monkeyFalse = list.get(monkey.throwFalse);
+            maxMod *= monkey.test;
         }
-        for (int c = 0; c < 20; c++) {
+        for (int c = 0; c < 10000; c++) {
             for (Monkey monkey : list) {
                 while (!monkey.items.isEmpty()) {
                     Item item = monkey.items.get(0);
-                    int newVal = 0;
-                    int oldVal = item.worry;
+                    long newVal = 0;
+                    long oldVal = item.worry;
                     if (monkey.operation[0].equals("+")) {
                         if (monkey.operation[1].equals("old")) {
                             newVal = oldVal + oldVal;
@@ -31,7 +35,7 @@ public class Day11 {
                         }
                     }
                     monkey.inspections++;
-                    item.worry = newVal / 3;
+                    item.setWorry(newVal, maxMod);// / 3;
                     if (item.worry % monkey.test == 0) {
                         monkey.chuck(monkey.monkeyTrue);
                     } else {
@@ -39,18 +43,24 @@ public class Day11 {
                     }
                 }
             }
-        }
-
-        Monkey topMonkey = new Monkey(new ArrayList<Item>(), "", 0, 0, 0);
-        Monkey runnerUpMonkey = new Monkey(new ArrayList<Item>(), "", 0, 0, 0);
-        for (Monkey monkey : list) {
-            if (monkey.inspections > topMonkey.inspections) {
-                runnerUpMonkey = topMonkey;
-                topMonkey = monkey;
+            if (c % 10000 == 9999) {
+                System.out.println(list);
             }
         }
+
+        ArrayList<Monkey> sortedMonkeys = new ArrayList<Monkey>(list);
+        Collections.sort(sortedMonkeys);
+
+        Monkey topMonkey = sortedMonkeys.get(sortedMonkeys.size() - 1);
+        Monkey runnerUpMonkey = sortedMonkeys.get(sortedMonkeys.size() - 2);
+
+        System.out.println("\n\n");
+        System.out.println(sortedMonkeys);
+        System.out.println();
         System.out.println(topMonkey);
         System.out.println(runnerUpMonkey);
         System.out.println("Monkey Business: " + (topMonkey.inspections * runnerUpMonkey.inspections));
     }
 }
+// 2713310158
+// 2713310158

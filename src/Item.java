@@ -1,8 +1,18 @@
-public class Item {
-    int worry;
+import java.math.BigInteger;
 
-    public Item(int initialWorry) {
+public class Item {
+    long worry;
+
+    public Item(long initialWorry) {
         this.worry = initialWorry;
+    }
+
+    public void setWorry(long worry, int mod) {
+        if (worry < 0) {
+            this.worry = (mod - Math.abs(worry)) % mod;
+        } else {
+            this.worry = worry % mod;
+        }
     }
 
     @Override
