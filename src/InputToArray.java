@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class InputToArray {
     int type;
     ArrayList list;
+    int[] startAndEnd;
 
     public InputToArray(int type, String filename) {
         this.type = type;
@@ -25,13 +26,34 @@ public class InputToArray {
             }
             int initCount = 0;
             ArrayList<ArrayList<String>> stacks = new ArrayList<ArrayList<String>>();
-            
+            int lineCount = 1;
+            startAndEnd = new int[4];
             for (int i = 0; i < 9; i++) {
                 stacks.add(new ArrayList<String>());
             }
             while (line != null) {
                 if (this.type != 4 && this.type != 9) {
-                    this.list.add(this.convert(new String[]{line}, false));
+                    Object result = this.convert(new String[]{line}, false);
+                    if (type != 10) {
+                        this.list.add(result);
+                    } else {
+                        ArrayList<Integer> arr = (ArrayList<Integer>)result;
+                        if (arr.indexOf(-1) >= 0) {
+                            int idx = arr.indexOf(-1);
+                            this.startAndEnd[0] = lineCount;
+                            this.startAndEnd[1] = idx;
+                            arr.remove(idx);
+                            arr.add(idx, 1);
+                            this.list.add(arr);
+                        } else if (arr.indexOf(27) >= 0) {
+                            int idx = arr.indexOf(27);
+                            this.startAndEnd[2] = lineCount;
+                            this.startAndEnd[3] = idx;
+                            arr.set(idx, 26);
+                            this.list.add(arr);
+                        }
+                        System.out.println(arr);
+                    }
                     try {
                         line = scanner.nextLine();
                     } catch (NoSuchElementException e) {
@@ -39,7 +61,7 @@ public class InputToArray {
                         return;
                     }
                 } else if (this.type == 9) {
-                    ArrayList<Item> items = new ArrayList<Item>();
+                    //ArrayList<Item> items = new ArrayList<Item>();
                     String operation = "";
                     int test = 0;
                     int throwFalse = 0;
@@ -47,7 +69,7 @@ public class InputToArray {
                     line = scanner.nextLine();
                     String[] splits = line.split(" ");
                     for (int i = 4; i < splits.length; i++) {
-                        items.add(new Item(Integer.parseInt(splits[i].split(",")[0])));
+                        //items.add(new Item(Integer.parseInt(splits[i].split(",")[0])));
                     }
                     line = scanner.nextLine();
                     splits = line.split(" ");
@@ -67,7 +89,7 @@ public class InputToArray {
                     splits = line.split(" ");
                     throwFalse = Integer.parseInt(splits[splits.length - 1]);
                     //line = scanner.nextLine();
-                    this.list.add(new Monkey(items, operation, test, throwFalse, throwTrue));
+                    //this.list.add(new Monkey(items, operation, test, throwFalse, throwTrue));
                     try {
                         line = scanner.nextLine();
                     } catch (NoSuchElementException e) {
@@ -113,6 +135,7 @@ public class InputToArray {
                         }
                     }
                 }
+                lineCount++;
             }
             scanner.close();
         } catch (IOException e) {
@@ -149,6 +172,8 @@ public class InputToArray {
                     r[0] = 0;
                     r[1] = 0;
                     return r;
+                } case 10: {
+                    return new ArrayList<Integer>();
                 } default: {
                     return "";
                 }
@@ -215,7 +240,7 @@ public class InputToArray {
                     }
                 }
                 r[1] = Integer.parseInt(splits[1]);
-                return new Point(r[0], r[1]);
+                //return new Point(r[0], r[1]);
             } case 7: {
                 String line = toConvert[0];
                 ArrayList<Integer> row = new ArrayList<Integer>();
@@ -234,6 +259,21 @@ public class InputToArray {
                     r[1] = Integer.parseInt(splits[1]);
                 }
                 return r;
+            } case 10: {
+                String line = toConvert[0];
+                ArrayList<Integer> elevations = new ArrayList<Integer>();
+                for (int i = 0; i < line.length(); i++) {
+                    char character = line.charAt(i);
+                    int ascii = (int)character;
+                    if (character == 'S') {
+                        elevations.add(-1);
+                    } else if (character == 'E') {
+                        elevations.add(27);
+                    } else {
+                        elevations.add(ascii - 96);
+                    }
+                }
+                return elevations;
             } default: {
                 return toConvert;
             }
