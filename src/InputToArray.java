@@ -28,12 +28,22 @@ public class InputToArray {
             ArrayList<ArrayList<String>> stacks = new ArrayList<ArrayList<String>>();
             int lineCount = 1;
             startAndEnd = new int[4];
+            PacketValue currentPacketValue = new PacketValue();
             for (int i = 0; i < 9; i++) {
                 stacks.add(new ArrayList<String>());
             }
             while (line != null) {
-                if (this.type != 4 && this.type != 9 && this.type != 10) {
+                if (this.type != 4 && this.type != 9 && this.type != 10 && this.type != 11) {
                     this.list.add(this.convert(new String[]{line}, false));
+                    try {
+                        line = scanner.nextLine();
+                    } catch (NoSuchElementException e) {
+                        scanner.close();
+                        return;
+                    }
+                } else if (this.type == 11) {
+                    PacketValue newVal = new PacketValue(currentPacketValue);
+                    //TODO: set newVal to curernt, and change based on open and closed brackets                    
                     try {
                         line = scanner.nextLine();
                     } catch (NoSuchElementException e) {
