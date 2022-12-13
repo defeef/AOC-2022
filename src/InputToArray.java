@@ -32,27 +32,38 @@ public class InputToArray {
                 stacks.add(new ArrayList<String>());
             }
             while (line != null) {
-                if (this.type != 4 && this.type != 9) {
-                    Object result = this.convert(new String[]{line}, false);
-                    if (type != 10) {
-                        this.list.add(result);
-                    } else {
-                        ArrayList<Integer> arr = (ArrayList<Integer>)result;
-                        if (arr.indexOf(-1) >= 0) {
-                            int idx = arr.indexOf(-1);
-                            this.startAndEnd[0] = lineCount;
-                            this.startAndEnd[1] = idx;
-                            arr.remove(idx);
-                            arr.add(idx, 1);
-                            this.list.add(arr);
-                        } else if (arr.indexOf(27) >= 0) {
-                            int idx = arr.indexOf(27);
-                            this.startAndEnd[2] = lineCount;
-                            this.startAndEnd[3] = idx;
-                            arr.set(idx, 26);
-                            this.list.add(arr);
-                        }
-                        System.out.println(arr);
+                if (this.type != 4 && this.type != 9 && this.type != 10) {
+                    this.list.add(this.convert(new String[]{line}, false));
+                    try {
+                        line = scanner.nextLine();
+                    } catch (NoSuchElementException e) {
+                        scanner.close();
+                        return;
+                    }
+                } else if (this.type == 10) {
+                    ArrayList<Integer> arr = (ArrayList<Integer>)this.convert(new String[]{line}, false);
+                    boolean last = false;
+                    if (!(arr.contains(-1) || arr.contains(27))) {
+                        last = true;
+                    }
+                    if (arr.contains(-1)) {
+                        int idx = arr.indexOf(-1);
+                        this.startAndEnd[0] = lineCount;
+                        this.startAndEnd[1] = idx;
+                        arr.remove(idx);
+                        arr.add(idx, 1);
+                        this.list.add(arr);
+                    }
+                    if (arr.contains(27)) {
+                        int idx = arr.indexOf(27);
+                        this.startAndEnd[2] = lineCount;
+                        this.startAndEnd[3] = idx;
+                        arr.remove(idx);
+                        arr.add(idx, 26);
+                        this.list.add(arr);
+                    }
+                    if (last) {
+                        this.list.add(arr);
                     }
                     try {
                         line = scanner.nextLine();
@@ -60,6 +71,7 @@ public class InputToArray {
                         scanner.close();
                         return;
                     }
+                    lineCount++;
                 } else if (this.type == 9) {
                     //ArrayList<Item> items = new ArrayList<Item>();
                     String operation = "";
@@ -135,7 +147,6 @@ public class InputToArray {
                         }
                     }
                 }
-                lineCount++;
             }
             scanner.close();
         } catch (IOException e) {

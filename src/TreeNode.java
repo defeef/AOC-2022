@@ -1,17 +1,17 @@
 import java.util.ArrayList;
 
-public class Node {
+public class TreeNode {
     String name;
     boolean isDir;
-    ArrayList<Node> children;
-    Node parent;
+    ArrayList<TreeNode> children;
+    TreeNode parent;
     int size;
     int depth;
 
-    public Node(String name, boolean isDir, int size) {
+    public TreeNode(String name, boolean isDir, int size) {
         this.name = name;
         this.isDir = isDir;
-        this.children = new ArrayList<Node>();
+        this.children = new ArrayList<TreeNode>();
         this.size = size;
         parent = null;
     }
@@ -20,12 +20,12 @@ public class Node {
         this.depth = depth;
     }
 
-    public void addChild(Node child) {
+    public void addChild(TreeNode child) {
         this.children.add(child);
         child.parent = this;
     }
 
-    public Node getChild(int index) {
+    public TreeNode getChild(int index) {
         return children.get(index);
     }
 
@@ -35,8 +35,8 @@ public class Node {
         } else {
             if (this.children.size() > 0) {
                 int s = 0;
-                ArrayList<Node> queue = new ArrayList<Node>(children);
-                Node activeNode = queue.get(0);
+                ArrayList<TreeNode> queue = new ArrayList<TreeNode>(children);
+                TreeNode activeNode = queue.get(0);
                 while (!queue.isEmpty()) {
                     System.out.println(activeNode);
                     s += activeNode.getSize();
@@ -64,7 +64,7 @@ public class Node {
 
     @Override
     public boolean equals(Object other) {
-        Node node = (Node)other;
+        TreeNode node = (TreeNode)other;
         return this.name.equals(node.name) && this.isDir == node.isDir && this.depth == node.depth;
     }
 }

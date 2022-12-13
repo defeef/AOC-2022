@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Day7 {
     public Day7() {
@@ -7,8 +6,8 @@ public class Day7 {
         InputToArray array = new InputToArray(2, path);
 
         boolean listing = false;
-        ArrayList<Node> unOrgNodes = new ArrayList<Node>();
-        unOrgNodes.add(new Node("/", true, 0));
+        ArrayList<TreeNode> unOrgNodes = new ArrayList<TreeNode>();
+        unOrgNodes.add(new TreeNode("/", true, 0));
         for (int i = 0; i < array.list.size(); i++) {
             String line = (String)array.list.get(i);
             String[] splits = line.split(" ");
@@ -20,16 +19,16 @@ public class Day7 {
             }
             if (listing) {
                 if (!splits[0].equals("dir") && !splits[0].equals("$")) {
-                    unOrgNodes.add(new Node(splits[1], false, Integer.parseInt(splits[0])));
+                    unOrgNodes.add(new TreeNode(splits[1], false, Integer.parseInt(splits[0])));
                 } else if (splits[0].equals("dir")) {
-                    unOrgNodes.add(new Node(splits[1], true, 0));
+                    unOrgNodes.add(new TreeNode(splits[1], true, 0));
                 }
             }
         }
 
-        ArrayList<Node> uniqueUnOrgNodes = new ArrayList<Node>();
+        ArrayList<TreeNode> uniqueUnOrgNodes = new ArrayList<TreeNode>();
 
-        for (Node node : unOrgNodes) {
+        for (TreeNode node : unOrgNodes) {
             if (!(uniqueUnOrgNodes.contains(node))) {
                 uniqueUnOrgNodes.add(node);
                 //System.out.println(node);
@@ -37,7 +36,7 @@ public class Day7 {
         }
 
         String currentDir = "";
-        Node dirNode = uniqueUnOrgNodes.get(0);
+        TreeNode dirNode = uniqueUnOrgNodes.get(0);
         dirNode.setDepth(0);
         listing = false;
         for (int i = 0; i < array.list.size(); i++) {
@@ -50,7 +49,7 @@ public class Day7 {
                 if (splits[1].equals("cd") && !splits[2].equals("..")) {
                     currentDir = splits[2];
                     //System.out.println("name: " + currentDir);
-                    int idx = uniqueUnOrgNodes.indexOf(new Node(currentDir, true, 0));
+                    int idx = uniqueUnOrgNodes.indexOf(new TreeNode(currentDir, true, 0));
                     if (idx >= 0) {
                         dirNode = uniqueUnOrgNodes.get(idx);
                     }
@@ -70,11 +69,11 @@ public class Day7 {
                 } catch (NumberFormatException e) {
                     size = 0;
                 }
-                Node node = new Node(splits[1], splits[0].equals("dir"), size);
+                TreeNode node = new TreeNode(splits[1], splits[0].equals("dir"), size);
                 int idx = uniqueUnOrgNodes.indexOf(node);
                 if (idx >= 0) {
                     //System.out.println(splits[1] + " " + splits[0].equals("dir"));
-                    Node addedNode = uniqueUnOrgNodes.get(idx);
+                    TreeNode addedNode = uniqueUnOrgNodes.get(idx);
                     addedNode.setDepth(dirNode.depth + 1);
                     dirNode.addChild(addedNode);
                 }
@@ -82,9 +81,9 @@ public class Day7 {
         }
 
         int size = 0;
-        ArrayList<Node> queue = new ArrayList<Node>();
+        ArrayList<TreeNode> queue = new ArrayList<TreeNode>();
         queue.add(uniqueUnOrgNodes.get(0));
-        Node activeNode = queue.get(0);
+        TreeNode activeNode = queue.get(0);
         while (!queue.isEmpty()) {
             if (activeNode.getSize() <= 100000) {
                 System.out.println(activeNode.getSize());
