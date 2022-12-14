@@ -28,7 +28,6 @@ public class InputToArray {
             ArrayList<ArrayList<String>> stacks = new ArrayList<ArrayList<String>>();
             int lineCount = 1;
             startAndEnd = new int[4];
-            PacketValue currentPacketValue = new PacketValue();
             for (int i = 0; i < 9; i++) {
                 stacks.add(new ArrayList<String>());
             }
@@ -42,8 +41,51 @@ public class InputToArray {
                         return;
                     }
                 } else if (this.type == 11) {
-                    PacketValue newVal = new PacketValue(currentPacketValue);
-                    //TODO: set newVal to curernt, and change based on open and closed brackets                    
+                    if (line.length() == 0) {
+                        line = scanner.nextLine();
+                    }
+                    TreeNode currentNode = new TreeNode("", true, 0);
+                    String[] lineSplit = line.split("");
+                    String intParseLine = line.replace("[", " ")
+                            .replace(",", " ")
+                            .replace("]", " ");
+                    //System.out.println(Arrays.toString(lineSplit));
+                    for (int i = 0; i < lineSplit.length; i++) {
+                        //System.out.println(currentNode);
+                        //System.out.println();
+                        String str = lineSplit[i];
+                        //System.out.println("v: " + str + " i: " + i);
+                        TreeNode temp = new TreeNode("", true, 0);
+                        if (str.equals("[")) {
+                            currentNode.addChild(temp);
+                            currentNode = temp;
+                        } else if (str.equals("]")) {
+                            //currentPacketValue = currentPacketValue.enclosing;
+                            //System.out.println(currentNode);
+                            currentNode = currentNode.parent;
+                        } else {
+                            int j = i;
+                            while (intParseLine.charAt(j) != ' ') {
+                                j++;
+                            }
+                            /*while (!str.equals(",")) {
+                                System.out.println("v: " + str + " i: " + i);
+                                val += str;
+                                str = lineSplit[i];
+                                i++;
+                            }*/
+                            //System.out.println("|" + intParseLine.substring(i, j) + "|");
+                            if (!(j <=i)) {
+                                TreeNode newVal = new TreeNode("", true, 0);
+                                newVal.size = Integer.parseInt(intParseLine.substring(i, j));
+                                currentNode.addChild(newVal);
+                                //System.out.println(newVal);
+                                i = j;
+                            }
+                        }
+                        //TODO: set newVal to current, and change based on open and closed brackets
+                    }
+                    this.list.add(currentNode);
                     try {
                         line = scanner.nextLine();
                     } catch (NoSuchElementException e) {

@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 public class Day13 {
     public Day13() {
-        String path = "Y:\\AP Computer Science A\\Baczkiewicz Henry A\\WORK\\AOC\\AOC-2022\\Day 5\\Day12.txt";
-        InputToArray array = new InputToArray(10, path);
-        ArrayList<ArrayList<Integer>> list = array.list;
-        
-        ArrayList<ArrayList<Integer>> visited = new ArrayList<ArrayList<Integer>>();
+        String path = "C:\\Users\\henry\\Documents\\Coding\\Java\\AOC 2022\\AOC-2022\\src\\Day13.txt";
+        InputToArray array = new InputToArray(11, path);
+        ArrayList<TreeNode> list = array.list;
+
+        System.out.println(list.get(0));
         for (int i = 0; i < list.size(); i++) {
             //System.out.println(list.get(i));
         }
-        System.out.println(visited.size());
+        System.out.println();
     }
 }
