@@ -1,6 +1,5 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -237,6 +236,8 @@ public class InputToArray {
                     return r;
                 } case 10: {
                     return new ArrayList<Integer>();
+                } case 12: {
+                    return new Point(-1, -1);
                 } default: {
                     return "";
                 }
@@ -337,6 +338,15 @@ public class InputToArray {
                     }
                 }
                 return elevations;
+            } case 12: {
+                String line = toConvert[0];
+                String[] pairs = line.split(" -> ");
+                SandShape result = new SandShape();
+                for (String point : pairs) {
+                    result.addPoint(new Point(Integer.parseInt(point.split(",")[0]),
+                            Integer.parseInt(point.split(",")[1])));
+                }
+                return result;
             } default: {
                 return toConvert;
             }
